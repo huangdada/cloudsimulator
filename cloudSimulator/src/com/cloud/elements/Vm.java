@@ -294,24 +294,65 @@ public class Vm extends Element{
 	
 	public void booting() {
 		// TODO Auto-generated method stub
-		state = VMState.PROLOG;
-		try {
-			Thread.sleep(createTime*1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		state = VMState.RUNNING;
-		try {
-			Thread.sleep(bootingTime*1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		startSBS();
+		
+		Thread t = new Thread(new Runnable(){  
+			public void run(){  
+				state = VMState.PROLOG;
+				try {
+					Thread.sleep(createTime*1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				state = VMState.RUNNING;
+				try {
+					Thread.sleep(bootingTime*1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				startSBS();
+				
+			}});  
+			t.start();  
 	}
-
-	private void startSBS() {
+	
+	public boolean suspend(){
+		this.state = VMState.SUSPEND;
+		
+		stopSBS();
+		
+		return true;
+	}
+	
+	public boolean start(){
+		this.state = VMState.PROLOG;	
+		Thread t = new Thread(new Runnable(){  
+			public void run(){  
+				try {
+					Thread.sleep(3000);
+					setState(VMState.RUNNING);
+					startSBS();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}});  
+			t.start();  
+		return true;
+	}
+	
+	public boolean shutdown(){
+		stopSBS();
+		
+		return true;
+	}
+	
+	public void stopSBS(){
+		System.out.println("Quited the pool!");
+	}
+	public void startSBS() {
 		// TODO Auto-generated method stub
 		System.out.println("Joined pool!");
 	}

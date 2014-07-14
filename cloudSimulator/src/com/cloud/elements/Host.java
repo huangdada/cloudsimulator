@@ -1,6 +1,6 @@
 package com.cloud.elements;
 
-import java.util.TreeMap;
+import java.util.ArrayList;
 
 /**
  * A class that presents a host of cloud. 
@@ -10,20 +10,15 @@ public class Host extends Element {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private TreeMap<String,Vm> vmList;
+	private ArrayList<Vm> vmList;
 	private String cloudName;
 	private int maxVmNum;
-	private int currVmNum;
-	private int remainingVmNum;
 	private String id;
 	private String name;
 	private String ipmiID;
 	private int powerStat = 1;
-	private boolean isFull;
-	
-	
 	public Host(){
-		vmList = new TreeMap<String,Vm>();
+		vmList = new ArrayList<Vm>();
 	}
 	
 	/**
@@ -34,7 +29,7 @@ public class Host extends Element {
 		this.maxVmNum = maxVmNum;
 		this.id = id;
 		this.cloudName = cloudName;
-		vmList = new TreeMap<String,Vm>();
+		vmList = new ArrayList<Vm>();
 		this.name = name;
 	}
 
@@ -90,7 +85,7 @@ public class Host extends Element {
 	 * @return The number of how many virtual machines can be created on this host.
 	 */
 	public int getRemainingVmNum() {
-		return remainingVmNum;
+		return maxVmNum-this.getVmList().size();
 	}
 
 
@@ -99,7 +94,6 @@ public class Host extends Element {
 	 * @param  The number of how many virtual machines can be created on this host.
 	 */
 	public void setRemainingVmNum() {
-		this.remainingVmNum = maxVmNum-currVmNum;
 	}
 
 	/**
@@ -122,7 +116,7 @@ public class Host extends Element {
 	 * Get the virtual machines' list that running on this host.
 	 * @return A TreeMap of the instances of virtual machines. as the key set is vitual machine's id. 
 	 */
-	public TreeMap<String, Vm> getVmList() {
+	public ArrayList<Vm> getVmList() {
 		
 		return vmList;
 	}
@@ -131,7 +125,7 @@ public class Host extends Element {
 	 * Set the virtual machines list that running on the host.
 	 * @param vmList, a treeMap of virtual machines' instances
 	 */
-	public void setVmList(TreeMap<String, Vm> vmList) {
+	public void setVmList(ArrayList<Vm> vmList) {
 		this.vmList = vmList;
 	}
 	
@@ -162,7 +156,6 @@ public class Host extends Element {
 	 * @param the number of virtual machines that already be launched on this host. 
 	 */
 	public void setCurrVmNum(int currVmNum) {
-		this.currVmNum = currVmNum;
 	}
 	
 	/**
@@ -183,13 +176,33 @@ public class Host extends Element {
 
 
 	public boolean isFull() {
-		return isFull;
+		if(this.getRemainingVmNum()==0){
+			return true;
+		}else{
+			return false;
+		}
+		
 	}
-
+	public Vm getVm(String id){
+		
+		for(Vm vm : vmList){
+			if(vm.getId().equals(id)){
+				return vm;
+			}
+		}
+		return null;
+	}
+	public boolean addVm(Vm vm){
+		return vmList.add(vm);
+	}
 
 	public void setFull(boolean isFull) {
-		this.isFull = isFull;
 	}
 	
+	public boolean delete(String id2) {
+		// TODO Auto-generated method stub		
+		Vm vm = this.getVm(id2);
+		 return vmList.remove(vm);
+	}
 
 }
