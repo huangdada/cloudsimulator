@@ -40,6 +40,7 @@ public class Excutor {
 					FrontEnd.currCloud.delete(id2);
 					//FrontEnd.currCloud.delete(id2);
 					break;
+				
 			}
 		}else if (cmd.equalsIgnoreCase("simhost")){
 			FrontEnd.currCloud.hostlist();

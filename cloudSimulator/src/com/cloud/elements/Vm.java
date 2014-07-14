@@ -1,5 +1,8 @@
 package com.cloud.elements;
 
+import com.cloud.control.FrontEnd;
+import com.sbs.batch.Sbs;
+
 /**
  * A class representing a virtual machine 
  */
@@ -350,11 +353,13 @@ public class Vm extends Element{
 	}
 	
 	public void stopSBS(){
-		System.out.println("Quited the pool!");
+		String vm = id+"@"+FrontEnd.currCloud.getCloudName();
+		Sbs.rmSlot(vm);
 	}
 	public void startSBS() {
 		// TODO Auto-generated method stub
-		System.out.println("Joined pool!");
+		String vm = FrontEnd.currCloud.getCloudName()+","+id+","+privateIP;
+		Sbs.addSlot(vm);
 	}
 
 	/**
