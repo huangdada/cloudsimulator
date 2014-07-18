@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.cloud.elements.Cloud;
+import com.cloud.rmiServer.CmdServer;
 
 
 
@@ -78,7 +79,7 @@ public class FrontEnd {
 	    	title= cloudName+"@simCloud >";
 	    }    
 	    /* execution here */
-	    Excutor.execute(userCmd);
+	    Executor.execute(userCmd);
 
 	    return true;
 	    
@@ -109,6 +110,7 @@ public class FrontEnd {
 	 * 
 	 */
 	public static void main(String[] args) throws Exception {
+		CmdServer.initiate();
 		FrontEnd uimain = new FrontEnd();
 		uimain.clouds = new HashMap<String,Cloud> ();
 		boolean more = false;

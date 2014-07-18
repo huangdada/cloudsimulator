@@ -3,7 +3,7 @@ package com.cloud.control;
 import com.cloud.elements.Host;
 
 
-public class Excutor {
+public class Executor {
 
 	public static void execute(String userCmd) {
 		// TODO Auto-generated method stub

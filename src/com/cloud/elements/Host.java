@@ -202,6 +202,7 @@ public class Host extends Element {
 	public boolean delete(String id2) {
 		// TODO Auto-generated method stub		
 		Vm vm = this.getVm(id2);
+		vm.shutdown();
 		 return vmList.remove(vm);
 	}
 

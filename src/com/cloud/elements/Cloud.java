@@ -6,6 +6,7 @@ import java.util.StringTokenizer;
 import java.util.TreeMap;
 
 import com.cloud.elements.Vm.VMState;
+import com.cloud.remote.Client;
 
 
 /**
@@ -97,7 +98,8 @@ public class Cloud{
 				vm.setPubicIP("");
 				vm.setCreateTime(vm_create_time);
 				vm.setBootingTime(vm_booting_time);
-				vm.setState(VMState.PROLOG);				
+				vm.setState(VMState.PROLOG);	
+				vm.setCloudName(cloudName);
 				vm.booting();
 				return true;
 			}			
@@ -144,6 +146,7 @@ public class Cloud{
 		String hostName = vm.getHostname();
 		Host h = hostList.get(hostName);				
 		h.delete(id);
+
 		return true;
 	}
 	

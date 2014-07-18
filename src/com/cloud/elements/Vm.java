@@ -1,7 +1,7 @@
 package com.cloud.elements;
 
 import com.cloud.control.FrontEnd;
-import com.sbs.batch.Sbs;
+import com.cloud.remote.Client;
 
 /**
  * A class representing a virtual machine 
@@ -40,7 +40,7 @@ public class Vm extends Element{
 		this.time = "";
 		this.ucpu = "";
 		this.group = "";
-		this.cloudName = "";
+		this.cloudName = FrontEnd.currCloud.getCloudName();
 		this.privateIP="";
 		this.pubicIP="";
 		this.isIdle = 3;
@@ -353,13 +353,13 @@ public class Vm extends Element{
 	}
 	
 	public void stopSBS(){
-		String vm = id+"@"+FrontEnd.currCloud.getCloudName();
-		Sbs.rmSlot(vm);
+		String vm = id+"@"+cloudName;
+		Client.rmSlot(vm);
 	}
 	public void startSBS() {
 		// TODO Auto-generated method stub
-		String vm = FrontEnd.currCloud.getCloudName()+","+id+","+privateIP;
-		Sbs.addSlot(vm);
+		String vm = cloudName+","+id+","+privateIP;
+		Client.addSlot(vm);
 	}
 
 	/**
