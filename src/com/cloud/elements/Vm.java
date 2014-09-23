@@ -1,5 +1,7 @@
 package com.cloud.elements;
 
+import java.text.SimpleDateFormat;
+
 import com.cloud.control.FrontEnd;
 import com.cloud.remote.Client;
 
@@ -31,13 +33,17 @@ public class Vm extends Element{
 	 *Constructor, initialize an instance of virtual machine as the default members' value. 
 	 */
 	public Vm() {
+		
+		SimpleDateFormat sDateFormat   =   new   SimpleDateFormat("hh:mm:ss");     
+		String   date  =   sDateFormat.format(new java.util.Date());
+		
 		this.uId = new Integer(0);
 		this.id = "";
 		this.state = VMState.PENDING;
 		this.memory = "";
 		this.user = "";
 		this.hostname = "";
-		this.time = "";
+		this.time = date;
 		this.ucpu = "";
 		this.group = "";
 		this.cloudName = FrontEnd.currCloud.getCloudName();
@@ -48,6 +54,7 @@ public class Vm extends Element{
 	
 	public Vm(String generateID) {
 		// TODO Auto-generated constructor stub
+		this();
 		id=generateID;
 	}
 

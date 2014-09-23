@@ -16,7 +16,7 @@ public class MyRMISocket extends RMISocketFactory
 	public ServerSocket createServerSocket(int port) throws IOException 
 	{ 
 		 if (port == 0) 
-		    port = 8099;  
+		    port = 3099;  
 		return new ServerSocket(port); 
 	}
 	

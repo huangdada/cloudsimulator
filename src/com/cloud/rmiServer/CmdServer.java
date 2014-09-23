@@ -18,9 +18,9 @@ public class CmdServer {
 		try {
 			System.setProperty("java.rmi.server.hostname","localhost");
 			RMISocketFactory.setSocketFactory (new MyRMISocket()); 
-			LocateRegistry.createRegistry(9099); 
+			LocateRegistry.createRegistry(7099); 
 			RemoteCmd rcmd = new RemoteCmd("simCloud");
-			Naming.rebind("rmi://localhost:9099/simCloud", rcmd);
+			Naming.rebind("rmi://localhost:7099/simCloud", rcmd);
 			System.out.println("Rmi server is running... ...");
 		
 		} catch (RemoteException e) {

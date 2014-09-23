@@ -87,7 +87,8 @@ public class Cloud{
 	}
 
 
-	public boolean create(){
+	public Vm create(){
+		
 		for(Host h : hostList.values()){
 			if(!h.isFull()){
 				String id = generateID();
@@ -101,12 +102,28 @@ public class Cloud{
 				vm.setState(VMState.PROLOG);	
 				vm.setCloudName(cloudName);
 				vm.booting();
-				return true;
+				return vm;
 			}			
 		}
 		
-		return false;
+		return null;
 	}
+	
+	public Vm create(Host h){
+		String id = generateID();
+		Vm vm = new Vm(id);
+		h.addVm(vm);
+		vm.setHostname(h.getName());
+		vm.setPrivateIP(alloIP());
+		vm.setPubicIP("");
+		vm.setCreateTime(vm_create_time);
+		vm.setBootingTime(vm_booting_time);
+		vm.setState(VMState.PROLOG);	
+		vm.setCloudName(cloudName);
+		vm.booting();
+		return vm;
+	} 
+	
 	public Vm getVm(String id){
 		for(Host h : hostList.values()){
 			Vm vm = h.getVm(id);

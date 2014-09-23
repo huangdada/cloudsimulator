@@ -20,7 +20,7 @@ import com.cloud.rmiServer.CmdServer;
 public class FrontEnd {
 
 
-	private HashMap<String,Cloud> clouds;
+	public static HashMap<String,Cloud> clouds;
 	public static Cloud currCloud;
 	String title = "simCloud >";
 	/**
